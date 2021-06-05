@@ -19,7 +19,7 @@
                 <label for="product" class="form-label">Product Name</label>
                 <select name="product" id="product">
                     <option value="domain">Domain</option>
-                    <option value="Hosting">Hosting</option>
+                    <option value="hosting">Hosting</option>
                     <option value="pdomain">Protected Domain</option>
                   </select>
             </div>
@@ -41,29 +41,23 @@
         </form>
     </div>
 
-    <div class="intro py-3-bg-black text-center">
-        <div class="container">
-            <h2 class="text-primary display-6 my-4">Scheduling and tracking transaction-based email</h2>
-        </div>
+    <div class="container d-none card" >
+        <h2 class="text-primary display-6 my-4 text-center">Scheduling and tracking transaction-based email</h2>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">CustomerID</th>
+                <th scope="col">ProductName</th>
+                <th scope="col">Domain</th>
+                <th scope="col">EmailDate</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
     </div>
-
-    <div class="container">
-        <div class="row">
-          <div class="col">
-            CustomerID
-          </div>
-          <div class="col">
-            ProductName
-          </div>
-          <div class="col">
-            Domain
-          </div>
-          <div class="col">
-            EmailDate
-          </div>
-        </div>
-    </div>
-
+    
+    <script src="http://cdn.date-fns.org/v1.9.0/date_fns.min.js"></script>
     <script src="scripts/product.js"></script>
     <script src="scripts/app.js"></script>
 </body>
