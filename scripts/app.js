@@ -7,42 +7,55 @@ const textPattern = /^[A-Za-z0-9]+$/;
 // form validation
 form.addEventListener('submit', e => {
     e.preventDefault();
-  
+    
     const duration = form.duration.value;
     const start = form.start.value;
     const domain = form.domain.value;
     const customer = form.customer.value;
     const product = form.product.value;
+
+    let flagUnique = 0;
+    let flagCreate = 0;
   
     if(numericPattern.test(duration)){
-        console.log('that duration is valid!', duration)
-    } else {
-        console.log('that duration is NOT valid!', duration)
+        flagUnique++;
     }
 
     if(datePattern.test(start)){
-        console.log('that date is valid!', start)
-    } else {
-        console.log('that date is NOT valid!', start)
+        flagUnique++;
     }
 
     if(domainPattern.test(domain)){
-        console.log('that domain is valid!', domain)
-    } else {
-        console.log('that domain is NOT valid!', domain)
+        flagUnique++;
     }
 
     if(textPattern.test(customer)){
-        console.log('that domain is valid!', customer)
-    } else {
-        console.log('that domain is NOT valid!', customer)
+        flagCreate++;
     }
 
     if(textPattern.test(product)){
-        console.log('that domain is valid!', product)
-    } else {
-        console.log('that domain is NOT valid!', product)
+        flagCreate++;
     }
+
+    if (e.submitter.value === "Create"){
+        // create the product
+        if (flagUnique === 3 && flagCreate == 2){
+            console.log("all good to create!");
+            const myproduct = new Product(customer, product, domain, start, duration);
+            console.log(myproduct);
+        } else {
+            console.log("missing fields");
+        }
+    } else {
+        // delete the product
+        if (flagUnique === 3){
+            console.log("all good to delete!");
+        } else {
+            console.log("missing fields");
+        }
+    }
+    
+
 
   });
 
@@ -66,3 +79,4 @@ form.customer.addEventListener('keyup', e => {
 form.product.addEventListener('keyup', e => {
     textPattern.test(e.target.value) ? form.product.setAttribute('class', 'success') : form.product.setAttribute('class', 'error');
 });
+
