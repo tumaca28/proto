@@ -5,9 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
-    <title>Scheduling and tracking transaction-based email</title>
+    <title>Prototype</title>
 </head>
 <body>
+    <!-- top section -->
+    <div class="intro py-3-bg-black text-center">
+      <div class="container">
+          <h2 class="text-primary display-6 my-4">Scheduling and tracking transaction-based email</h2>
+      </div>
+    </div>
+
+    <div class="container">
+        <form class="form">
+            <div class="mb-3">
+                <label for="customer" class="form-label">Customer ID</label>
+                <input type="text" id="customer" placeholder="Cust123">
+
+                <label for="product" class="form-label">Product Name</label>
+                <input type="text" id="product" placeholder="domain">
+
+                <label for="domain" class="form-label">Domain</label>
+                <input type="text" id="domain" placeholder="xyzzy.com">
+            </div>
+            <div class="mb-3">
+                <label for="start" class="form-label">Start Date</label>
+                <input type="text" id="start" placeholder="2020-01-01">
+            </div>
+            <div class="mb-3">
+                <label for="duration" class="form-label">Duration</label>
+                <input type="text" id="duration" placeholder="12">
+            </div>
+
+            <input type="submit" value="Create">
+        </form>
+    </div>
 
     <script src="scripts/app.js"></script>
 </body>
