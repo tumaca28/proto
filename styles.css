@@ -2,6 +2,7 @@ body{
     background: #eee;
   }
   form{
+    max-width: 600px;
     margin: 40px auto;
     background: white;
     padding: 10px;

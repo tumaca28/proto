@@ -18,11 +18,11 @@ form.addEventListener('submit', e => {
     let flagCreate = 0;
   
     if(numericPattern.test(duration)){
-        flagUnique++;
+        flagCreate++;
     }
 
     if(datePattern.test(start)){
-        flagUnique++;
+        flagCreate++;
     }
 
     if(domainPattern.test(domain)){
@@ -30,32 +30,25 @@ form.addEventListener('submit', e => {
     }
 
     if(textPattern.test(customer)){
-        flagCreate++;
-    }
-
-    if(textPattern.test(product)){
-        flagCreate++;
+        flagUnique++;
     }
 
     if (e.submitter.value === "Create"){
         // create the product
-        if (flagUnique === 3 && flagCreate == 2){
-            console.log("all good to create!");
+        if (flagUnique === 2 && flagCreate == 2){
             const myproduct = new Product(customer, product, domain, start, duration);
-            console.log(myproduct);
+            localStorage.setItem(customer + product + domain, JSON.stringify(myproduct));
         } else {
             console.log("missing fields");
         }
-    } else {
+    } else if (e.submitter.value === "Delete"){
         // delete the product
-        if (flagUnique === 3){
-            console.log("all good to delete!");
+        if (flagUnique === 2){
+            localStorage.removeItem(customer + product + domain);
         } else {
             console.log("missing fields");
         }
     }
-    
-
 
   });
 
@@ -76,7 +69,9 @@ form.customer.addEventListener('keyup', e => {
     textPattern.test(e.target.value) ? form.customer.setAttribute('class', 'success') : form.customer.setAttribute('class', 'error');
 });
 
-form.product.addEventListener('keyup', e => {
-    textPattern.test(e.target.value) ? form.product.setAttribute('class', 'success') : form.product.setAttribute('class', 'error');
-});
 
+
+for (let i = 0; i < localStorage.length; i++){
+    //$('body').append(localStorage.getItem(localStorage.key(i)));
+    console.log("completed", i);
+}
