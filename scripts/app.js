@@ -51,6 +51,19 @@ const refresh = () => {
     }
 };
 
+// add to report
+const addLine = (customer, product, domain, emailDate) => {
+
+    // I will ingnore all dates in the paste as the schedule will show only future emails to be send
+    if (!dateFns.isPast(emailDate)){
+        report.push({ "customer": customer,
+        "product": product,
+        "domain": domain,
+        "emailDate": dateFns.format(emailDate, 'YYYY-MM-DD')
+        });
+    }
+};
+
 // reporting
 const reporting = (productKey) => {
     myProduct = JSON.parse(localStorage.getItem(productKey));
@@ -59,51 +72,28 @@ const reporting = (productKey) => {
     const startDate = new Date(myProduct.start+ 'T00:00:00');
     const expirationDate = new Date( dateFns.addMonths(startDate, 12));
 
-    // I will ingnore all dates in the paste as the schedule will show only future emails to be send
-    if (!dateFns.isPast(startDate)){
 
-        switch(myProduct.product){
-            case 'domain':
-                // Domain sends email 2 days before expiration
-                report.push({ "customer": myProduct.customer,
-                            "product": myProduct.product,
-                            "domain": myProduct.domain,
-                            "emailDate": dateFns.format(dateFns.subDays(expirationDate, 2), 'YYYY-MM-DD')
-                             });
-                break;
-            case 'hosting':
-                // Hosting sends email 1 day after activation (or startDate)
-                report.push({ "customer": myProduct.customer,
-                            "product": myProduct.product,
-                            "domain": myProduct.domain,
-                            "emailDate": dateFns.format(dateFns.addDays(startDate, 1), 'YYYY-MM-DD')
-                             });
+    switch(myProduct.product){
+        case 'domain':
+            // Domain sends email 2 days before expiration
+            addLine(myProduct.customer, myProduct.product, myProduct.domain, dateFns.subDays(expirationDate, 2));
+            break;
+        case 'hosting':
+            // Hosting sends email 1 day after activation (or startDate)
+            addLine(myProduct.customer, myProduct.product, myProduct.domain, dateFns.addDays(startDate, 1));
 
-                // Hosting sends email 3 days before expiration
-                report.push({ "customer": myProduct.customer,
-                            "product": myProduct.product,
-                            "domain": myProduct.domain,
-                            "emailDate": dateFns.format(dateFns.subDays(expirationDate, 3), 'YYYY-MM-DD')
-                             });
-                break;
-            case 'pdomain':
-                // Protected Domain sends email 9 days before expiration
-                report.push({ "customer": myProduct.customer,
-                            "product": myProduct.product,
-                            "domain": myProduct.domain,
-                            "emailDate": dateFns.format(dateFns.subDays(expirationDate, 9), 'YYYY-MM-DD')
-                             });
+            // Hosting sends email 3 days before expiration
+            addLine(myProduct.customer, myProduct.product, myProduct.domain, dateFns.subDays(expirationDate, 3));
+            break;
+        case 'pdomain':
+            // Protected Domain sends email 9 days before expiration
+            addLine(myProduct.customer, myProduct.product, myProduct.domain, dateFns.subDays(expirationDate, 9));
 
-                // Protected Domain sends email 2 days before expiration
-                report.push({ "customer": myProduct.customer,
-                            "product": myProduct.product,
-                            "domain": myProduct.domain,
-                            "emailDate": dateFns.format(dateFns.subDays(expirationDate, 2), 'YYYY-MM-DD')
-                             });
-                break;
-        }
-
+            // Protected Domain sends email 2 days before expiration
+            addLine(myProduct.customer, myProduct.product, myProduct.domain, dateFns.subDays(expirationDate, 2));
+            break;
     }
+
 
 };
 
